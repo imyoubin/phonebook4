@@ -24,14 +24,14 @@ public class PhonebookController {
     }
 
     // 2. 등록 폼
-    @RequestMapping(value = "/wform", method = RequestMethod.GET)
+    @RequestMapping(value = "/wform", method = {RequestMethod.GET, RequestMethod.POST})
     public String writeForm() {
         System.out.println("PhonebookController.writeForm()");
         return "writeForm";
     }
 
     // 3. 등록 처리
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @RequestMapping(value = "/insert", method = {RequestMethod.GET, RequestMethod.POST})
     public String insert(@ModelAttribute PersonVO personVO) {
         System.out.println("PhonebookController.insert()");
         System.out.println(personVO);
@@ -40,7 +40,7 @@ public class PhonebookController {
     }
 
     // 4. 수정 폼
-    @RequestMapping(value = "/updateForm", method = RequestMethod.GET)
+    @RequestMapping(value = "/updateForm", method = {RequestMethod.GET, RequestMethod.POST})
     public String updateForm(@RequestParam("no") int no, Model model) {
         System.out.println("PhonebookController.updateForm() - no: " + no);
         PersonVO pVO = new PhonebookDAO().personSelectOne(no);
@@ -49,7 +49,7 @@ public class PhonebookController {
     }
 
     // 5. 수정 처리
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = {RequestMethod.GET, RequestMethod.POST})
     public String update(@ModelAttribute PersonVO personVO) {
         System.out.println("PhonebookController.update()");
         System.out.println(personVO);
@@ -58,7 +58,7 @@ public class PhonebookController {
     }
 
     // 6. 삭제 폼
-    @RequestMapping(value = "/deleteForm", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteForm", method = {RequestMethod.GET, RequestMethod.POST})
     public String deleteForm(@RequestParam("no") int no, Model model) {
         System.out.println("PhonebookController.deleteForm() - no: " + no);
         model.addAttribute("no", no);
@@ -66,7 +66,6 @@ public class PhonebookController {
     }
 
     // 7. 삭제 처리
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam("no") int no) {
         System.out.println("PhonebookController.delete() - no: " + no);
         new PhonebookDAO().personDelete(no);
