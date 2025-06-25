@@ -36,7 +36,17 @@ public class PhonebookService {
     public int exePhonebookRemove(PersonVO personVO) {
         System.out.println("PhonebookService.exePhonebookRemove()");
         
-        int count = phonebookDAO.personDelete(0);
+        int count = phonebookDAO.personDelete(personVO);
+        
+        return count;
+    }
+    
+    // 전화번호 수정 처리
+    public int exePhonebookUpdate(PersonVO personVO) {
+    	
+        System.out.println("PhonebookService.exePhonebookUpdate()");
+        
+        int count = phonebookDAO.personUpdate(personVO);
         
         return count;
     }

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+
 <!DOCTYPE html>
+
 <html>
 <head>
     <title>삭제 확인</title>
@@ -8,8 +10,8 @@
     <h1>삭제 확인</h1>
     <p>정말 삭제하시겠습니까?</p>
 
-    <form action="${pageContext.request.contextPath}/phonebook4/delete" method="get">
-        <input type="hidden" name="no" value="${no}">
+    <form action="${pageContext.request.contextPath}/phonebook4/remove" method="post">
+        <input type="hidden" name="personId" value="${personId}">
         <button type="submit">삭제</button>
     </form>
 

@@ -3,16 +3,47 @@
 
 
 <mapper namespace="phonebook">
+	<!-- 폰북 전체 리스트 가져오기  -->
 	<select id="selectList" resultType="com.javaex.vo.PersonVO">
 	<![CDATA[
 	select	person_id, 
-		name, 
-		hp,
-		company
-		from person
-		order by person_id desc
+			name, 
+			hp,
+			company
+			from person
 	]]>
 	</select>
 	
+	<!-- 폰북저장 -->
+	
+	<insert id="insert" parameterType="com.javaex.vo.PersonVO">
+		<![CDATA[
+			insert into person
+			values(null, '#{name}', '#{hp}', '#{company}')
+		
+		]]>
+	
+	</insert>
+	
+	<!-- 폰북삭제 -->
+	<delete id="delete" parameterType="com.javaex.vo.PersonVO">">
+		<![CDATA[    
+			delete from person
+			where person_id = #{no}
+		]]>
+	
+	</delete>
+	
+	<!-- 폰북수정 -->
+	<update id="update" parameterType="com.javaex.vo.PersonVO">">
+		<![CDATA[    
+			update person
+        		   set name = #{name},
+            	   hp = #{hp},
+            	   company = #{company}
+        	where person_id = #{personId}
+		]]>
+	
+	</update>
 	
 </mapper>
