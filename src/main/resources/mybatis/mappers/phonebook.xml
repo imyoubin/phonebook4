@@ -3,47 +3,79 @@
 
 
 <mapper namespace="phonebook">
-	<!-- 폰북 전체 리스트 가져오기  -->
-	<select id="selectList" resultType="com.javaex.vo.PersonVO">
-	<![CDATA[
-	select	person_id, 
-			name, 
-			hp,
-			company
+	<resultMap id="resultMapPersonVo" type="com.javaex.vo.PersonVO">
+	    <result column="person_id" property="personId" />  
+	    <result column="name" property="name" />
+	    <result column="hp" property="hp" />
+	    <result column="company" property="company" />
+	</resultMap>
+
+	
+	<!-- 전체데이터 가져오기2 resultMap -->
+	<select id="selectList2" resultMap="resultMapPersonVo">
+		<![CDATA[
+			select 	person_id,
+					name,  
+			        hp,
+			        company
 			from person
-	]]>
+			order by person_id desc
+		]]>
 	</select>
 	
-	<!-- 폰북저장 -->
+	<!-- 전체데이터 가져오기 -->
+	<select id="selectList" resultType="PersonVO">
+		<![CDATA[
+			select 	person_id as personId,     
+					name,  
+			        hp,
+			        company
+			from person
+			order by person_id desc
+		]]>
+	</select>
 	
+	
+	<!-- 1명데이타 가져오기 -->
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.PersonVO">
+		select 	person_id as personId,
+				name,
+		        hp,
+		        company
+		from person
+		where person_id = #{personId}  
+ 	</select>
+	
+	
+	<!-- 1명데이타 가져오기 map-->
+	<select id="selectOne2" parameterType="int" resultType="map">
+		select 	person_id as personId,
+				name,
+		        hp,
+		        company
+		from person
+		where person_id = #{personId}  
+ 	</select>
+	
+	
+
+	<!-- 1명저장하기 -->
 	<insert id="insert" parameterType="com.javaex.vo.PersonVO">
 		<![CDATA[
 			insert into person
-			values(null, '#{name}', '#{hp}', '#{company}')
-		
+			values(null, #{name}, #{hp}, #{company})
 		]]>
-	
 	</insert>
-	
-	<!-- 폰북삭제 -->
-	<delete id="delete" parameterType="com.javaex.vo.PersonVO">">
-		<![CDATA[    
-			delete from person
-			where person_id = #{no}
+
+
+
+	<!-- 1명저장하기 map -->
+	<insert id="insert2" parameterType="map">
+		<![CDATA[
+			insert into person
+			values(null, #{name}, #{hp}, #{company})
 		]]>
-	
-	</delete>
-	
-	<!-- 폰북수정 -->
-	<update id="update" parameterType="com.javaex.vo.PersonVO">">
-		<![CDATA[    
-			update person
-        		   set name = #{name},
-            	   hp = #{hp},
-            	   company = #{company}
-        	where person_id = #{personId}
-		]]>
-	
-	</update>
-	
+	</insert>
+
+
 </mapper>
